@@ -13,13 +13,13 @@ export class User {
   props: UserProps;
 
   constructor(props: UserProps) {
-    
     this.props = {
       ...props,
       id: props.id ?? randomUUID(),
       createdAt: props.createdAt ?? new Date(),
     };
     this.validateEmail(props.email);
+    this.validateUsername(props.username.trim());
   }
 
   get id() {
@@ -56,6 +56,12 @@ export class User {
 
     if (!emailValidator) {
       throw new Error('Invalid email');
+    }
+  }
+
+  private validateUsername(username: string) {
+    if (!username) {
+      throw new Error('Invalid username');
     }
   }
 }

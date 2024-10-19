@@ -22,4 +22,12 @@ test('cannot create user with invalid email', () => {
   }).toThrowError('Invalid email');
 });
 
-test('cannot create user without username', () => {});
+test('cannot create user without username', () => {
+  expect(() => {
+    new User({
+      email: 'johndoe@gmail.com',
+      username: '',
+      password: '123456',
+    });
+  }).toThrowError('Invalid username');
+});
