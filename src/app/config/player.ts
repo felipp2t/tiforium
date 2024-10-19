@@ -1,0 +1,1 @@
+export type STATUS = 'ACTIVE' | 'ELIMINATED' | 'WAITING';
