@@ -1,7 +1,8 @@
+import type { UUID } from 'node:crypto';
 import type { Suit, Value } from '../config/card';
 
 interface CardProps {
-  id: string;
+  id: UUID;
   value: Value;
   suit: Suit;
 }
