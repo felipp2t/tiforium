@@ -1,0 +1,1 @@
+export const NOTIFICATION_EXPIRES_AT_IN_MS = 1000 * 15;
