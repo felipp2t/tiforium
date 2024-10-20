@@ -1,11 +1,11 @@
-import { randomUUID } from 'node:crypto';
+import { type UUID, randomUUID } from 'node:crypto';
 import { MAX_PLAYERS_LIMIT, MIN_PLAYERS_LIMIT } from '../config/players-limit';
 import type { User } from './user';
 
 interface LobbyProps {
-  id?: string;
+  id: UUID;
   maxPlayers: number;
-  players: User[];
+  players: Pick<User, 'id'>[];
   owner: User;
 }
 
@@ -40,7 +40,7 @@ export class Lobby {
     return this.props.owner;
   }
 
-  private validateMaxPlayers(maxPlayers: number, players: User[]) {
+  private validateMaxPlayers(maxPlayers: number, players: Pick<User, 'id'>[]) {
     if (players.length + 1 > maxPlayers) {
       throw new Error(
         'Cannot create a lobby with more players than max players',
