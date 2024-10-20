@@ -40,7 +40,7 @@ beforeAll(() => {
 });
 
 test('create player', () => {
-  const sut = new Player({
+  const player = new Player({
     id: randomUUID(),
     userId: randomUUID(),
     cards,
@@ -49,12 +49,12 @@ test('create player', () => {
     status: 'ACTIVE',
   });
 
-  expect(sut.id).toBeDefined();
-  expect(sut.userId).toBeDefined();
-  expect(sut.cards).toEqual(expect.arrayContaining(cards));
-  expect(sut.bet).toBe(2);
-  expect(sut.turnWins).toBe(0);
-  expect(sut.status).toBe('ACTIVE');
+  expect(player.id).toBeDefined();
+  expect(player.userId).toBeDefined();
+  expect(player.cards).toEqual(expect.arrayContaining(cards));
+  expect(player.bet).toBe(2);
+  expect(player.turnWins).toBe(0);
+  expect(player.status).toBe('ACTIVE');
 });
 
 test('cannot create player with bet greater than the number of cards', () => {
