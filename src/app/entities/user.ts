@@ -1,21 +1,23 @@
-import { type UUID, randomUUID } from 'node:crypto';
+import type { UUID } from 'node:crypto';
+import type { InvitationNotification } from './invitation-notification';
 
 interface UserProps {
-  id?: UUID;
+  id: UUID;
   username: string;
   email: string;
   password: string;
+  notifications?: InvitationNotification[];
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 export class User {
-  props: UserProps;
+  private props: UserProps;
 
   constructor(props: UserProps) {
     this.props = {
       ...props,
-      id: props.id ?? randomUUID(),
+      notifications: props.notifications ?? [],
       createdAt: props.createdAt ?? new Date(),
     };
     this.validateEmail(props.email);
@@ -44,6 +46,10 @@ export class User {
 
   get updatedAt() {
     return this.props.updatedAt;
+  }
+
+  get notifications() {
+    return this.props.notifications ?? [];
   }
 
   setUpdatedAt() {
