@@ -61,7 +61,7 @@ export class Lobby {
   }
 
   private validateOwner(owner: User) {
-    if (!owner.email || !owner.username || !owner.password) {
+    if (!owner.email || !owner.username) {
       throw new Error('Cannot create a lobby without an owner');
     }
   }
