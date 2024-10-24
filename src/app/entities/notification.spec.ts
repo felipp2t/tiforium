@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { expect, test } from 'vitest';
-import { InvitationNotification } from './invitation-notification';
+import { Notification } from './notification';
 import { User } from './user';
 
 test('send invitation notification', () => {
@@ -11,14 +11,12 @@ test('send invitation notification', () => {
     password: '123456',
   });
 
-  const notification = new InvitationNotification({
+  const notification = new Notification({
     id: randomUUID(),
     lobbyId: randomUUID(),
     userId: user.id,
   });
 
-  user.notifications?.push(notification);
-
-  expect(user.notifications).toHaveLength(1);
-  expect(user.notifications?.[0].status).toEqual('PENDING');
+  expect(notification).toBeInstanceOf(Notification);
+  expect(notification.userId).toBe(user.id);
 });
