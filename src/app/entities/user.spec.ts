@@ -1,13 +1,12 @@
-import { randomUUID } from 'node:crypto';
 import { expect, test } from 'vitest';
-import { User } from './user';
+import { createUser } from '../factories/user-factory.js';
+import { User } from './user.js';
 
-test('create uesr', () => {
-  const user = new User({
-    id: randomUUID(),
+test('create user', () => {
+  const user = createUser({
     email: 'johndoe@gmail.com',
-    username: 'John Doe',
     password: '123456',
+    username: 'John Doe',
   });
 
   expect(user).toBeInstanceOf(User);
@@ -16,22 +15,20 @@ test('create uesr', () => {
 
 test('cannot create user with invalid email', () => {
   expect(() => {
-    new User({
-      id: randomUUID(),
+    createUser({
       email: '',
-      username: 'John Doe',
       password: '123456',
+      username: 'John Doe',
     });
   }).toThrowError('Invalid email');
 });
 
 test('cannot create user without username', () => {
   expect(() => {
-    new User({
-      id: randomUUID(),
+    createUser({
       email: 'johndoe@gmail.com',
-      username: '',
       password: '123456',
+      username: '',
     });
   }).toThrowError('Invalid username');
 });

@@ -1,5 +1,5 @@
 import type { UUID } from 'node:crypto';
-import type { Round } from './round';
+import type { Round } from './round.js';
 
 interface MatchProps {
   id: UUID;
@@ -10,9 +10,7 @@ export class Match {
   private props: MatchProps;
 
   constructor(props: MatchProps) {
-    this.props = {
-      ...props,
-    };
+    this.props = props
   }
 
   get id(): string {

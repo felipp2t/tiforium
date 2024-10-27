@@ -1,57 +1,26 @@
 import { randomUUID } from 'node:crypto';
 import { beforeAll, expect, test } from 'vitest';
-import { Bet } from './bet';
-import { Card } from './card';
-import { Player } from './player';
+import { createBet } from '../factories/bet-factory.js';
+import { createCard } from '../factories/card-factory.js';
+import { createPlayer } from '../factories/player-factory.js';
+import type { Bet } from './bet.js';
+import type { Card } from './card.js';
 
 let card1: Card;
 let card2: Card;
 let card3: Card;
 let card4: Card;
 let cards: Card[];
-
-beforeAll(() => {
-  card1 = new Card({
-    id: randomUUID(),
-    value: '1',
-    suit: 'SPADES',
-  });
-
-  card2 = new Card({
-    id: randomUUID(),
-    value: '2',
-    suit: 'HEARTS',
-  });
-
-  card3 = new Card({
-    id: randomUUID(),
-    value: 'QUEEN',
-    suit: 'CLUBS',
-  });
-
-  card4 = new Card({
-    id: randomUUID(),
-    value: 'KING',
-    suit: 'DIAMONDS',
-  });
-
-  cards = [card1, card2, card3, card4].sort(() => {
-    return Math.random() - 0.5;
-  });
-});
+let bet: Bet;
 
 test('create player', () => {
-  const player = new Player({
+  const player = createPlayer({
     id: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
     userId: randomUUID(),
-    cards,
-    bet: new Bet({
-      id: randomUUID(),
-      playerId: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
-      predictedVictories: 2,
-    }),
     turnWins: 0,
     status: 'ACTIVE',
+    cards,
+    bet,
   });
 
   expect(player.id).toBeDefined();
@@ -63,54 +32,65 @@ test('create player', () => {
 });
 
 test('cannot create player with bet greater than the number of cards', () => {
+  const bet = createBet({
+    id: randomUUID(),
+    predictedVictories: 5,
+  });
+
   expect(() => {
-    new Player({
-      id: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
-      userId: randomUUID(),
-      cards,
-      bet: new Bet({
-        id: randomUUID(),
-        playerId: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
-        predictedVictories: 5,
-      }),
+    createPlayer({
       turnWins: 0,
       status: 'ACTIVE',
+      cards,
+      bet,
     });
   }).toThrowError('Bet must be lower than the number of cards');
 });
 
 test('cannot create player with bet less than 0', () => {
+  const bet = createBet({
+    id: randomUUID(),
+    predictedVictories: -1,
+  });
+
   expect(() => {
-    new Player({
-      id: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
-      userId: randomUUID(),
-      cards,
-      bet: new Bet({
-        id: randomUUID(),
-        playerId: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
-        predictedVictories: -1,
-      }),
+    createPlayer({
       turnWins: 0,
       status: 'ACTIVE',
+      cards,
+      bet,
     });
   }).toThrowError('Bet must be greater than 0');
 });
 
 test('cannot create player with eliminated status with cards in hand', () => {
+  const bet = createBet({
+    id: randomUUID(),
+    predictedVictories: 2,
+  });
+
   expect(() => {
-    new Player({
-      id: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
-      userId: randomUUID(),
+    createPlayer({
       cards,
-      bet: new Bet({
-        id: randomUUID(),
-        playerId: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
-        predictedVictories: 2,
-      }),
-      turnWins: 0,
+      bet,
       status: 'ELIMINATED',
+      turnWins: 0,
     });
   }).toThrowError(
     'it not possible to have cards in hand with status ELIMINATED',
   );
+});
+
+beforeAll(() => {
+  card1 = createCard({ value: '1', suit: 'SPADES' });
+  card2 = createCard({ value: '2', suit: 'HEARTS' });
+  card3 = createCard({ value: '3', suit: 'CLUBS' });
+  card4 = createCard({ value: '4', suit: 'DIAMONDS' });
+
+  cards = [card1, card2, card3, card4];
+
+  bet = createBet({
+    id: randomUUID(),
+    predictedVictories: 2,
+  });
 });

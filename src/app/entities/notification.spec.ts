@@ -1,22 +1,26 @@
 import { randomUUID } from 'node:crypto';
-import { expect, test } from 'vitest';
-import { Notification } from './notification';
-import { User } from './user';
+import { beforeAll, expect, test } from 'vitest';
+import { createNotification } from '../factories/notification-factory.js';
+import { createUser } from '../factories/user-factory.js';
+import { Notification } from './notification.js';
+import type { User } from './user.js';
+
+let user: User;
 
 test('send invitation notification', () => {
-  const user = new User({
-    id: randomUUID(),
-    email: 'johndoe@gmail.com',
-    username: 'JohnDoe',
-    password: '123456',
-  });
-
-  const notification = new Notification({
-    id: randomUUID(),
+  const notification = createNotification({
     lobbyId: randomUUID(),
     userId: user.id,
   });
 
   expect(notification).toBeInstanceOf(Notification);
   expect(notification.userId).toBe(user.id);
+});
+
+beforeAll(() => {
+  user = createUser({
+    email: 'johndoe@gmail.com',
+    password: '123456',
+    username: 'John Doe',
+  });
 });

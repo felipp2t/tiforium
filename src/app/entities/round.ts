@@ -1,6 +1,6 @@
 import type { UUID } from 'node:crypto';
-import type { Player } from './player';
-import type { Turn } from './turn';
+import type { Player } from './player.js';
+import type { Turn } from './turn.js';
 
 interface RoundProps {
   id: UUID;
@@ -12,9 +12,7 @@ export class Round {
   private props: RoundProps;
 
   constructor(props: RoundProps) {
-    this.props = {
-      ...props,
-    };
+    this.props = props
   }
 
   get id(): string {

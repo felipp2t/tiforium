@@ -1,50 +1,59 @@
-import { randomUUID } from 'node:crypto';
 import { beforeAll, expect, test } from 'vitest';
-import { Card } from './card';
-import { Pile } from './pile';
+import { createCard } from '../factories/card-factory.js';
+import { createPile } from '../factories/pile-factory.js';
+import type { Card } from './card.js';
 
 let card1: Card;
 let card2: Card;
 let card3: Card;
 let card4: Card;
-let cards: Card[];
-
-beforeAll(() => {
-  card1 = new Card({
-    id: randomUUID(),
-    value: '1',
-    suit: 'SPADES',
-  });
-
-  card2 = new Card({
-    id: randomUUID(),
-    value: '2',
-    suit: 'HEARTS',
-  });
-
-  card3 = new Card({
-    id: randomUUID(),
-    value: 'QUEEN',
-    suit: 'CLUBS',
-  });
-
-  card4 = new Card({
-    id: randomUUID(),
-    value: 'KING',
-    suit: 'DIAMONDS',
-  });
-
-  cards = [card1, card2, card3, card4].sort(() => {
-    return Math.random() - 0.5;
-  });
-});
 
 test('creta a pile', () => {
-  const pile = new Pile({
-    id: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
+  const pile = createPile({
     cardsPlayed: [],
   });
 
   expect(pile.id).toBeDefined();
   expect(pile.cardsPlayed).toEqual([]);
+});
+
+test('it should cancel cards of the same value', () => {
+  const pile = createPile({
+    cardsPlayed: [
+      {
+        playerId: 'c6f72f1d-ef12-4d84-9e52-2b8321f8b10e',
+        card: card1,
+      },
+      {
+        playerId: '3d7c7b3b-6b5f-4b2e-905e-02b3fc867fb7',
+        card: card2,
+      },
+      {
+        playerId: 'a2f50b36-6c85-4e37-a53c-2e9633c2f8da',
+        card: card3,
+      },
+      {
+        playerId: 'b4b1847a-c1f3-4d83-8325-7d8f4dbe9086',
+        card: card4,
+      },
+    ],
+  });
+
+  expect(pile.cardsPlayed).toEqual([
+    {
+      playerId: '3d7c7b3b-6b5f-4b2e-905e-02b3fc867fb7',
+      card: card2,
+    },
+    {
+      playerId: 'a2f50b36-6c85-4e37-a53c-2e9633c2f8da',
+      card: card3,
+    },
+  ]);
+});
+
+beforeAll(() => {
+  card1 = createCard({ value: '1', suit: 'SPADES' });
+  card2 = createCard({ value: 'JACK', suit: 'HEARTS' });
+  card3 = createCard({ value: '7', suit: 'DIAMONDS' });
+  card4 = createCard({ value: '1', suit: 'HEARTS' });
 });

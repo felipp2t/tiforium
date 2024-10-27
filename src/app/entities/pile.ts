@@ -1,9 +1,9 @@
 import type { UUID } from 'node:crypto';
-import type { Card } from './card';
+import type { Card } from './card.js';
 
 interface Cards {
   playerId: UUID;
-  cards: Card[];
+  card: Card;
 }
 
 interface PileProps {
@@ -16,6 +16,8 @@ export class Pile {
 
   constructor(props: PileProps) {
     this.props = props;
+
+    this.cancelCardsOfTheSameValue(props.cardsPlayed);
   }
 
   get id(): UUID {
@@ -25,4 +27,14 @@ export class Pile {
   get cardsPlayed(): Cards[] | null {
     return this.props.cardsPlayed;
   }
+
+  private cancelCardsOfTheSameValue(cardsPlayed: Cards[] | null) {
+    if (!cardsPlayed) return;
+
+    this.props.cardsPlayed = cardsPlayed.filter(
+      ({ card }) => card.value !== cardsPlayed[cardsPlayed.length - 1].card.value,
+    );
+  }
 }
+
+// [1, 3, 5, 1]

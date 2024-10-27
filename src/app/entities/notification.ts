@@ -11,15 +11,12 @@ interface NotificationProps {
 
 export class Notification {
   private props: NotificationProps;
-  private createdAt: Date;
 
   constructor(props: NotificationProps) {
     this.props = {
       ...props,
       status: props.status ?? 'PENDING',
     };
-
-    this.createdAt = new Date();
   }
 
   get id() {

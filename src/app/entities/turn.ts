@@ -1,6 +1,6 @@
 import type { UUID } from 'node:crypto';
-import type { Card } from './card';
-import type { Player } from './player';
+import type { Card } from './card.js';
+import type { Player } from './player.js';
 
 interface TurnProps {
   id: UUID;
@@ -12,9 +12,7 @@ export class Turn {
   private props: TurnProps;
 
   constructor(props: TurnProps) {
-    this.props = {
-      ...props,
-    };
+    this.props = props
   }
 
   get id(): string {

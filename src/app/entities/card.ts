@@ -1,6 +1,7 @@
 import type { UUID } from 'node:crypto';
-import type { Suit, Value } from '../config/card';
+import type { Suit, Value } from '../config/card.js';
 
+// TODO: refatorar: criar => pegar (player não cria, ele pega)
 interface CardProps {
   id: UUID;
   value: Value;

@@ -1,7 +1,7 @@
 import type { UUID } from 'node:crypto';
-import type { STATUS } from '../config/player';
-import type { Bet } from './bet';
-import type { Card } from './card';
+import type { STATUS } from '../config/player.js';
+import type { Bet } from './bet.js';
+import type { Card } from './card.js';
 
 interface PlayerProps {
   id: UUID;

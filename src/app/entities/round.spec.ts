@@ -1,78 +1,58 @@
 import { randomUUID } from 'node:crypto';
-import { expect, test } from 'vitest';
-import { Bet } from './bet';
-import { Card } from './card';
-import { Player } from './player';
-import { Round } from './round';
-import { Turn } from './turn';
+import { beforeAll, expect, test } from 'vitest';
+import { createBet } from '../factories/bet-factory.js';
+import { createCard } from '../factories/card-factory.js';
+import { createRound } from '../factories/round-factory.js';
+import { createPlayer } from '../factories/player-factory.js';
+import { createTurn } from '../factories/turn-factory.js';
+import type { Bet } from './bet.js';
+import type { Card } from './card.js';
+import type { Player } from './player.js';
+import { Round } from './round.js';
+import { Turn } from './turn.js';
+
+let card: Card;
+let cards: Card[];
+let bet: Bet;
+let player: Player;
+let turn1: Turn;
+let turn2: Turn;
 
 test('crate round', () => {
-  const round = makeRound();
+  const round = createRound({
+    turns: [turn1, turn2],
+    winner: player,
+  });
 
   expect(round).toBeInstanceOf(Round);
   expect(round.id).toBeDefined();
-  expect(round.turns).toHaveLength(3);
+  expect(round.turns).toHaveLength(2);
   expect(round.turns[0]).toBeInstanceOf(Turn);
 });
 
-const makeCards = (): Card[] => {
-  return [
-    new Card({
-      id: 'c6f72f1d-ef12-4d84-9e52-2b8321f8b10e',
-      value: '1',
-      suit: 'SPADES',
-    }),
-    new Card({
-      id: '3d7c7b3b-6b5f-4b2e-905e-02b3fc867fb7',
-      value: 'JACK',
-      suit: 'HEARTS',
-    }),
+beforeAll(() => {
+  card = createCard({ value: '1', suit: 'SPADES' });
+  cards = [card];
 
-    new Card({
-      id: 'a2f50b36-6c85-4e37-a53c-2e9633c2f8da',
-      value: '7',
-      suit: 'DIAMONDS',
-    }),
+  bet = createBet({
+    id: randomUUID(),
+    predictedVictories: 1,
+  });
 
-    new Card({
-      id: 'b4b1847a-c1f3-4d83-8325-7d8f4dbe9086',
-      value: '6',
-      suit: 'HEARTS',
-    }),
-  ];
-};
-
-const makePlayer = (): Player => {
-  return new Player({
-    id: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
-    userId: randomUUID(),
-    bet: new Bet({
-      id: randomUUID(),
-      playerId: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
-      predictedVictories: 2,
-    }),
-    cards: makeCards(),
-    status: 'ACTIVE',
+  player = createPlayer({
     turnWins: 0,
+    status: 'ACTIVE',
+    cards,
+    bet,
   });
-};
 
-const makeTurn = (): Turn => {
-  return new Turn({
-    id: randomUUID(),
-    player: makePlayer(),
-    card: new Card({
-      id: 'c6f72f1d-ef12-4d84-9e52-2b8321f8b10e',
-      value: '1',
-      suit: 'SPADES',
-    }),
+  turn1 = createTurn({
+    player,
+    card,
   });
-};
 
-const makeRound = (): Round => {
-  return new Round({
-    id: randomUUID(),
-    turns: [makeTurn(), makeTurn(), makeTurn()],
-    winner: makePlayer(),
+  turn2 = createTurn({
+    player,
+    card,
   });
-};
+});

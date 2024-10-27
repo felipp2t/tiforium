@@ -1,12 +1,24 @@
 import { randomUUID } from 'node:crypto';
-import { expect, test } from 'vitest';
-import { Bet } from './bet';
-import { Card } from './card';
-import { Player } from './player';
-import { Turn } from './turn';
+import { beforeAll, expect, test } from 'vitest';
+import { createBet } from '../factories/bet-factory.js';
+import { createCard } from '../factories/card-factory.js';
+import { createPlayer } from '../factories/player-factory.js';
+import { createTurn } from '../factories/turn-factory.js';
+import type { Bet } from './bet.js';
+import type { Card } from './card.js';
+import { Player } from './player.js';
+import { Turn } from './turn.js';
+
+let card: Card;
+let cards: Card[];
+let bet: Bet;
+let player: Player;
 
 test('create turn', () => {
-  const turn = makeTurn();
+  const turn = createTurn({
+    player,
+    card,
+  });
 
   expect(turn).toBeInstanceOf(Turn);
   expect(turn.id).toBeDefined();
@@ -14,56 +26,19 @@ test('create turn', () => {
   expect(turn.player.cards).toContainEqual(turn.card);
 });
 
-const makeCards = (): Card[] => {
-  return [
-    new Card({
-      id: 'c6f72f1d-ef12-4d84-9e52-2b8321f8b10e',
-      value: '1',
-      suit: 'SPADES',
-    }),
-    new Card({
-      id: '3d7c7b3b-6b5f-4b2e-905e-02b3fc867fb7',
-      value: 'JACK',
-      suit: 'HEARTS',
-    }),
+beforeAll(() => {
+  card = createCard({ value: '1', suit: 'SPADES' });
+  cards = [card];
 
-    new Card({
-      id: 'a2f50b36-6c85-4e37-a53c-2e9633c2f8da',
-      value: '7',
-      suit: 'DIAMONDS',
-    }),
-
-    new Card({
-      id: 'b4b1847a-c1f3-4d83-8325-7d8f4dbe9086',
-      value: '6',
-      suit: 'HEARTS',
-    }),
-  ];
-};
-
-const makePlayer = (): Player => {
-  return new Player({
-    id: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
-    userId: randomUUID(),
-    bet: new Bet({
-      id: randomUUID(),
-      playerId: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
-      predictedVictories: 2,
-    }),
-    cards: makeCards(),
-    status: 'ACTIVE',
-    turnWins: 0,
-  });
-};
-
-const makeTurn = (): Turn => {
-  return new Turn({
+  bet = createBet({
     id: randomUUID(),
-    player: makePlayer(),
-    card: new Card({
-      id: 'c6f72f1d-ef12-4d84-9e52-2b8321f8b10e',
-      value: '1',
-      suit: 'SPADES',
-    }),
+    predictedVictories: 1,
   });
-};
+
+  player = createPlayer({
+    turnWins: 0,
+    status: 'ACTIVE',
+    cards,
+    bet,
+  });
+});

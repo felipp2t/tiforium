@@ -1,6 +1,6 @@
 import { type UUID, randomUUID } from 'node:crypto';
-import { MAX_PLAYERS_LIMIT, MIN_PLAYERS_LIMIT } from '../config/players-limit';
-import type { User } from './user';
+import { MAX_PLAYERS_LIMIT, MIN_PLAYERS_LIMIT } from '../config/players-limit.js';
+import type { User } from './user.js';
 
 interface LobbyProps {
   id: UUID;
