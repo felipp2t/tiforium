@@ -1,17 +1,34 @@
-import { type UUID, randomUUID } from 'node:crypto';
 import type { Suit, Value } from '../config/card.js';
+import { DECK } from '../config/deck.js';
 import { Card } from '../entities/card.js';
 
 interface CardProps {
-  id?: UUID;
   value: Value;
   suit: Suit;
 }
 
-export const createCard = (props: CardProps): Card => {
+const createInstanceOfCard = (props: CardProps): Card => {
   return new Card({
-    id: props.id ?? randomUUID(),
     suit: props.suit,
     value: props.value,
   });
-}
+};
+
+type CardFactory =
+  | { value: Value; suit: Suit }
+  | { value?: never; suit?: never };
+
+export const getCard = (props: CardFactory) => {
+  if (props.value && props.suit) {
+    const card = DECK.find(
+      card => card.value === props.value && card.suit === props.suit,
+    );
+
+    if (card) {
+      return createInstanceOfCard(card);
+    }
+  }
+
+  const index = Math.floor(Math.random() * DECK.length);
+  return createInstanceOfCard(DECK[index]);
+};

@@ -1,5 +1,5 @@
 import { beforeAll, expect, test } from 'vitest';
-import { createCard } from '../factories/card-factory.js';
+import { getCard } from '../factories/card-factory.js';
 import { createPile } from '../factories/pile-factory.js';
 import type { Card } from './card.js';
 
@@ -52,8 +52,8 @@ test('it should cancel cards of the same value', () => {
 });
 
 beforeAll(() => {
-  card1 = createCard({ value: '1', suit: 'SPADES' });
-  card2 = createCard({ value: 'JACK', suit: 'HEARTS' });
-  card3 = createCard({ value: '7', suit: 'DIAMONDS' });
-  card4 = createCard({ value: '1', suit: 'HEARTS' });
+  card1 = getCard({ value: '1', suit: 'SPADES' });
+  card2 = getCard({ value: 'JACK', suit: 'HEARTS' });
+  card3 = getCard({ value: '7', suit: 'DIAMONDS' });
+  card4 = getCard({ value: '1', suit: 'HEARTS' });
 });

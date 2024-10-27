@@ -1,6 +1,6 @@
 import { beforeAll, expect, test } from 'vitest';
 import { createBet } from '../factories/bet-factory.js';
-import { createCard } from '../factories/card-factory.js';
+import { getCard } from '../factories/card-factory.js';
 import { createMatch } from '../factories/match-factory.js';
 import { createPlayer } from '../factories/player-factory.js';
 import { createRound } from '../factories/round-factory.js';
@@ -41,10 +41,10 @@ test('create match', () => {
 });
 
 beforeAll(() => {
-  card1 = createCard({ value: '1', suit: 'SPADES' });
-  card2 = createCard({ value: 'JACK', suit: 'HEARTS' });
-  card3 = createCard({ value: '7', suit: 'DIAMONDS' });
-  card4 = createCard({ value: '6', suit: 'HEARTS' });
+  card1 = getCard({});
+  card2 = getCard({});
+  card3 = getCard({});
+  card4 = getCard({});
   cards = [card1, card2, card3, card4];
 
   player1 = createPlayer({

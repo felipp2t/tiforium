@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { beforeAll, expect, test } from 'vitest';
 import { createBet } from '../factories/bet-factory.js';
-import { createCard } from '../factories/card-factory.js';
+import { getCard } from '../factories/card-factory.js';
 import { createPlayer } from '../factories/player-factory.js';
 import type { Bet } from './bet.js';
 import type { Card } from './card.js';
@@ -82,10 +82,10 @@ test('cannot create player with eliminated status with cards in hand', () => {
 });
 
 beforeAll(() => {
-  card1 = createCard({ value: '1', suit: 'SPADES' });
-  card2 = createCard({ value: '2', suit: 'HEARTS' });
-  card3 = createCard({ value: '3', suit: 'CLUBS' });
-  card4 = createCard({ value: '4', suit: 'DIAMONDS' });
+  card1 = getCard({});
+  card2 = getCard({});
+  card3 = getCard({});
+  card4 = getCard({});
 
   cards = [card1, card2, card3, card4];
 

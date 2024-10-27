@@ -1,9 +1,9 @@
 import { randomUUID } from 'node:crypto';
 import { beforeAll, expect, test } from 'vitest';
 import { createBet } from '../factories/bet-factory.js';
-import { createCard } from '../factories/card-factory.js';
-import { createRound } from '../factories/round-factory.js';
+import { getCard } from '../factories/card-factory.js';
 import { createPlayer } from '../factories/player-factory.js';
+import { createRound } from '../factories/round-factory.js';
 import { createTurn } from '../factories/turn-factory.js';
 import type { Bet } from './bet.js';
 import type { Card } from './card.js';
@@ -31,7 +31,7 @@ test('crate round', () => {
 });
 
 beforeAll(() => {
-  card = createCard({ value: '1', suit: 'SPADES' });
+  card = getCard({});
   cards = [card];
 
   bet = createBet({

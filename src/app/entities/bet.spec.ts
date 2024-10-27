@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { beforeAll, expect, test } from 'vitest';
-import { createCard } from '../factories/card-factory.js';
+import { getCard } from '../factories/card-factory.js';
 import { createPlayer } from '../factories/player-factory.js';
 import { Bet } from './bet.js';
 import type { Card } from './card.js';
@@ -28,29 +28,13 @@ test('create bet', () => {
 });
 
 beforeAll(() => {
-  card1 = createCard({
-    id: randomUUID(),
-    suit: 'DIAMONDS',
-    value: '2',
-  });
+  card1 = getCard({});
 
-  card2 = createCard({
-    id: randomUUID(),
-    suit: 'HEARTS',
-    value: '10',
-  });
+  card2 = getCard({});
 
-  card3 = createCard({
-    id: randomUUID(),
-    suit: 'SPADES',
-    value: 'KING',
-  });
+  card3 = getCard({});
 
-  card4 = createCard({
-    id: randomUUID(),
-    suit: 'CLUBS',
-    value: 'JACK',
-  });
+  card4 = getCard({});
 
   cards = [card1, card2, card3, card4];
 });

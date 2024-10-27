@@ -1,10 +1,8 @@
-import { randomUUID } from 'node:crypto';
 import { expect, test } from 'vitest';
-import { createCard } from '../factories/card-factory.js';
+import { getCard } from '../factories/card-factory.js';
 
-test('create card', () => {
-  const card = createCard({
-    id: randomUUID(),
+test('get card', () => {
+  const card = getCard({
     value: '1',
     suit: 'HEARTS',
   });
