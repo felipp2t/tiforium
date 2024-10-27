@@ -9,50 +9,104 @@ import type { Bet } from './bet.js';
 import type { Card } from './card.js';
 import type { Player } from './player.js';
 import { Round } from './round.js';
-import { Turn } from './turn.js';
+import type { Turn } from './turn.js';
 
-let card: Card;
-let cards: Card[];
+let cards1: Card[];
+let cards2: Card[];
+let cards3: Card[];
+let cards4: Card[];
 let bet: Bet;
-let player: Player;
+let player1: Player;
+let player2: Player;
+let player3: Player;
+let player4: Player;
 let turn1: Turn;
 let turn2: Turn;
+let turn3: Turn;
+let turn4: Turn;
 
 test('crate round', () => {
   const round = createRound({
-    turns: [turn1, turn2],
-    winner: player,
+    turns: [turn1, turn2, turn3, turn4],
   });
 
   expect(round).toBeInstanceOf(Round);
   expect(round.id).toBeDefined();
-  expect(round.turns).toHaveLength(2);
-  expect(round.turns[0]).toBeInstanceOf(Turn);
+  expect(round.turns).toHaveLength(4);
+});
+
+test('round winner', () => {
+  const round = createRound({
+    turns: [turn1, turn2, turn3, turn4],
+  });
+
+  expect(round.winner).toBe(player3.id);
 });
 
 beforeAll(() => {
-  card = getCard({});
-  cards = [card];
+  cards1 = [getCard({ value: '1', suit: 'HEARTS' })];
+  cards2 = [getCard({ value: '2', suit: 'CLUBS' })];
+  cards3 = [getCard({ value: '3', suit: 'SPADES' })];
+  cards4 = [getCard({ value: '4', suit: 'DIAMONDS' })];
 
   bet = createBet({
     id: randomUUID(),
     predictedVictories: 1,
   });
 
-  player = createPlayer({
+  player1 = createPlayer({
     turnWins: 0,
     status: 'ACTIVE',
-    cards,
+    cards: cards1,
+    bet,
+  });
+
+  player2 = createPlayer({
+    turnWins: 0,
+    status: 'ACTIVE',
+    cards: cards2,
+    bet,
+  });
+
+  player3 = createPlayer({
+    turnWins: 0,
+    status: 'ACTIVE',
+    cards: cards3,
+    bet,
+  });
+
+  player4 = createPlayer({
+    turnWins: 0,
+    status: 'ACTIVE',
+    cards: cards4,
     bet,
   });
 
   turn1 = createTurn({
-    player,
-    card,
+    playedCard: {
+      playerId: player1.id,
+      card: player1.cards[0],
+    },
   });
 
   turn2 = createTurn({
-    player,
-    card,
+    playedCard: {
+      playerId: player2.id,
+      card: player2.cards[0],
+    },
+  });
+
+  turn3 = createTurn({
+    playedCard: {
+      playerId: player3.id,
+      card: player3.cards[0],
+    },
+  });
+
+  turn4 = createTurn({
+    playedCard: {
+      playerId: player4.id,
+      card: player4.cards[0],
+    },
   });
 });

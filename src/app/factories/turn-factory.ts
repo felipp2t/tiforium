@@ -1,18 +1,23 @@
 import { type UUID, randomUUID } from 'node:crypto';
 import type { Card } from '../entities/card.js';
-import type { Player } from '../entities/player.js';
 import { Turn } from '../entities/turn.js';
+
+interface PlayedCard {
+  playerId: UUID;
+  card: Card;
+}
 
 interface TurnProps {
   id?: UUID;
-  player: Player;
-  card: Card;
+  playedCard: PlayedCard;
 }
 
 export const createTurn = (props: TurnProps): Turn => {
   return new Turn({
     id: props.id ?? randomUUID(),
-    card: props.card,
-    player: props.player,
+    playedCard: {
+      playerId: props.playedCard.playerId,
+      card: props.playedCard.card,
+    },
   });
-}
+};

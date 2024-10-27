@@ -5,7 +5,7 @@ import type { Card } from './card.js';
 
 interface PlayerProps {
   id: UUID;
-  userId: string;
+  userId: UUID;
   cards: Card[];
   bet: Bet;
   turnWins: number;
@@ -23,11 +23,11 @@ export class Player {
     this.validateStatus(props.status);
   }
 
-  get id(): string {
+  get id(): UUID {
     return this.props.id;
   }
 
-  get userId(): string {
+  get userId(): UUID {
     return this.props.userId;
   }
 

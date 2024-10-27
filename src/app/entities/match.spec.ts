@@ -84,42 +84,46 @@ beforeAll(() => {
   });
 
   turn1 = createTurn({
-    player: player1,
-    card: card1,
+    playedCard: {
+      playerId: player1.id,
+      card: card1,
+    },
   });
 
   turn2 = createTurn({
-    player: player2,
-    card: card2,
+    playedCard: {
+      playerId: player2.id,
+      card: card2,
+    },
   });
 
   turn3 = createTurn({
-    player: player3,
-    card: card3,
+    playedCard: {
+      playerId: player3.id,
+      card: card3,
+    },
   });
 
   turn4 = createTurn({
-    player: player4,
-    card: card4,
+    playedCard: {
+      playerId: player4.id,
+      card: card4,
+    },
   });
 
   round1 = createRound({
     turns: [turn1, turn2, turn3, turn4],
-    winner: player1,
   });
 
   round2 = createRound({
     turns: [turn1, turn2, turn3, turn4],
-    winner: player2,
   });
 
   round3 = createRound({
     turns: [turn1, turn2, turn3, turn4],
-    winner: player3,
   });
 
   round4 = createRound({
     turns: [turn1, turn2, turn3, turn4],
-    winner: player4,
   });
 });

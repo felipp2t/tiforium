@@ -1,5 +1,5 @@
-import type { UUID } from 'node:crypto';
 import type { Suit, Value } from '../config/card.js';
+import { DECK } from '../config/deck.js';
 
 interface CardProps {
   value: Value;
@@ -8,9 +8,11 @@ interface CardProps {
 
 export class Card {
   private props: CardProps;
+  private cardStrength: number;
 
   constructor(props: CardProps) {
     this.props = props;
+    this.cardStrength = this.getCardStrength(this.props);
   }
 
   get value(): Value {
@@ -19,5 +21,17 @@ export class Card {
 
   get suit(): Suit {
     return this.props.suit;
+  }
+
+  get strength(): number {
+    return this.cardStrength;
+  }
+
+  private getCardStrength(card: CardProps): number {
+    const strength = DECK.filter(
+      ({ value, suit }) => card.value === value && card.suit === suit,
+    )[0].strength;
+
+    return strength;
   }
 }
