@@ -1,15 +1,17 @@
 import { type UUID, randomUUID } from 'node:crypto';
-import { Match } from '../entities/match.js';
+import { Game } from '../entities/game.js';
 import type { Round } from '../entities/round.js';
 
-interface MatchProps {
+interface GameProps {
   id?: UUID;
+  lobbyId: UUID;
   rounds: Round[];
 }
 
-export const createMatch = (props: MatchProps): Match => {
-  return new Match({
+export const createGame = (props: GameProps): Game => {
+  return new Game({
     id: props.id ?? randomUUID(),
     rounds: props.rounds,
+    lobbyId: props.lobbyId,
   });
 };

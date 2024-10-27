@@ -41,7 +41,7 @@ export class Lobby {
   }
 
   private validateMaxPlayers(maxPlayers: number, players: Pick<User, 'id'>[]) {
-    if (players.length + 1 > maxPlayers) {
+    if (players.length > maxPlayers) {
       throw new Error(
         'Cannot create a lobby with more players than max players',
       );

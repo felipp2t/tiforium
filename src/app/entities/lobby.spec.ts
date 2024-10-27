@@ -29,7 +29,7 @@ test('cannot create a lobby with more players than max players', () => {
     createLobby({
       id: randomUUID(),
       maxPlayers: 4,
-      players: [player1, player2, player3, player4],
+      players: [player1, player2, player3, player4, owner],
       owner,
     });
   }).toThrowError('Cannot create a lobby with more players than max players');
