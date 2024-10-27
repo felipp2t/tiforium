@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { expect, test } from 'vitest';
+import { Bet } from './bet';
 import { Card } from './card';
 import { Player } from './player';
 import { Turn } from './turn';
@@ -42,9 +43,13 @@ const makeCards = (): Card[] => {
 
 const makePlayer = (): Player => {
   return new Player({
-    id: randomUUID(),
+    id: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
     userId: randomUUID(),
-    bet: 2,
+    bet: new Bet({
+      id: randomUUID(),
+      playerId: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
+      predictedVictories: 2,
+    }),
     cards: makeCards(),
     status: 'ACTIVE',
     turnWins: 0,

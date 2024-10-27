@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { beforeAll, expect, test } from 'vitest';
+import { Bet } from './bet';
 import { Card } from './card';
 import { Player } from './player';
 
@@ -41,10 +42,14 @@ beforeAll(() => {
 
 test('create player', () => {
   const player = new Player({
-    id: randomUUID(),
+    id: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
     userId: randomUUID(),
     cards,
-    bet: 2,
+    bet: new Bet({
+      id: randomUUID(),
+      playerId: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
+      predictedVictories: 2,
+    }),
     turnWins: 0,
     status: 'ACTIVE',
   });
@@ -52,7 +57,7 @@ test('create player', () => {
   expect(player.id).toBeDefined();
   expect(player.userId).toBeDefined();
   expect(player.cards).toEqual(expect.arrayContaining(cards));
-  expect(player.bet).toBe(2);
+  expect(player.bet.predictedVictories).toBe(2);
   expect(player.turnWins).toBe(0);
   expect(player.status).toBe('ACTIVE');
 });
@@ -60,10 +65,14 @@ test('create player', () => {
 test('cannot create player with bet greater than the number of cards', () => {
   expect(() => {
     new Player({
-      id: randomUUID(),
+      id: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
       userId: randomUUID(),
       cards,
-      bet: 5,
+      bet: new Bet({
+        id: randomUUID(),
+        playerId: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
+        predictedVictories: 5,
+      }),
       turnWins: 0,
       status: 'ACTIVE',
     });
@@ -73,10 +82,14 @@ test('cannot create player with bet greater than the number of cards', () => {
 test('cannot create player with bet less than 0', () => {
   expect(() => {
     new Player({
-      id: randomUUID(),
+      id: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
       userId: randomUUID(),
       cards,
-      bet: -1,
+      bet: new Bet({
+        id: randomUUID(),
+        playerId: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
+        predictedVictories: -1,
+      }),
       turnWins: 0,
       status: 'ACTIVE',
     });
@@ -86,10 +99,14 @@ test('cannot create player with bet less than 0', () => {
 test('cannot create player with eliminated status with cards in hand', () => {
   expect(() => {
     new Player({
-      id: randomUUID(),
+      id: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
       userId: randomUUID(),
       cards,
-      bet: 2,
+      bet: new Bet({
+        id: randomUUID(),
+        playerId: '7a70f481-bdcf-4c30-92f6-5b290ad63ec3',
+        predictedVictories: 2,
+      }),
       turnWins: 0,
       status: 'ELIMINATED',
     });

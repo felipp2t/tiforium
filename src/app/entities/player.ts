@@ -1,12 +1,13 @@
 import type { UUID } from 'node:crypto';
 import type { STATUS } from '../config/player';
+import type { Bet } from './bet';
 import type { Card } from './card';
 
 interface PlayerProps {
   id: UUID;
   userId: string;
   cards: Card[];
-  bet: number;
+  bet: Bet;
   turnWins: number;
   status: STATUS;
 }
@@ -17,8 +18,8 @@ export class Player {
   constructor(props: PlayerProps) {
     this.props = props;
 
-    this.validateMaxBetLimit(props.bet);
-    this.validateMinBetLimit(props.bet);
+    this.validateMaxBetLimit(props.bet.predictedVictories);
+    this.validateMinBetLimit(props.bet.predictedVictories);
     this.validateStatus(props.status);
   }
 
@@ -34,7 +35,7 @@ export class Player {
     return this.props.cards;
   }
 
-  get bet(): number {
+  get bet(): Bet {
     return this.props.bet;
   }
 
