@@ -1,7 +1,7 @@
 import type { UUID } from 'node:crypto';
-import { Lobby } from '../entities/lobby';
-import type { User } from '../entities/user';
-import type { LobbyRespository } from '../respositories/lobby-repository';
+import { Lobby } from '../entities/lobby.js';
+import type { User } from '../entities/user.js';
+import type { LobbyRespository } from '../respositories/lobby-repository.js';
 
 interface CreateLobbyRequest {
   id: UUID;

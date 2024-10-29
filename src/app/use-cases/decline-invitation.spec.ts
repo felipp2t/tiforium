@@ -1,8 +1,8 @@
 import { randomUUID } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
-import { Notification } from '../entities/notification';
-import { InMemoryNotificationRepository } from '../respositories/in-memory/in-memory-notification-repository';
-import { DeclineInvitation } from './decline-invitation';
+import { Notification } from '../entities/notification.js';
+import { InMemoryNotificationRepository } from '../respositories/in-memory/in-memory-notification-repository.js';
+import { DeclineInvitation } from './decline-invitation.js';
 
 describe('DeclineInvitation', () => {
   it('should be able to decline an invitation', async () => {

@@ -1,9 +1,9 @@
 import { type UUID, randomUUID } from 'node:crypto';
-import type { Lobby } from 'src/app/entities/lobby';
-import { Notification } from 'src/app/entities/notification';
-import type { LobbyRespository } from '../lobby-repository';
-import type { NotificationRepository } from '../notification-repository';
-import type { InMemoryUserRepository } from './in-memory-user-repository';
+import type { Lobby } from 'src/app/entities/lobby.js';
+import { Notification } from 'src/app/entities/notification.js';
+import type { LobbyRespository } from '../lobby-repository.js';
+import type { NotificationRepository } from '../notification-repository.js';
+import type { InMemoryUserRepository } from './in-memory-user-repository.js';
 
 export class InMemoryLobbyRespository implements LobbyRespository {
   private lobbies: Lobby[] = [];

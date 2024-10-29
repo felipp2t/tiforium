@@ -1,8 +1,8 @@
 import { randomUUID } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
-import { User } from '../entities/user';
-import { InMemoryUserRepository } from '../respositories/in-memory/in-memory-user-repository';
-import { CreateUser } from './create-user';
+import { User } from '../entities/user.js';
+import { InMemoryUserRepository } from '../respositories/in-memory/in-memory-user-repository.js';
+import { CreateUser } from './create-user.js';
 
 describe('CreateUser', () => {
   it('should be able to create a user', () => {

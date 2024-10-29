@@ -8,7 +8,7 @@ import { getCard } from "../factories/card-factory.js";
 import { createPlayer } from "../factories/player-factory.js";
 import { createRound } from "../factories/round-factory.js";
 import { createTurn } from "../factories/turn-factory.js";
-import { Pile } from "../entities/pile.js";
+import type { Pile } from "../entities/pile.js";
 import { createPile } from "../factories/pile-factory.js";
 
 let pile: Pile;

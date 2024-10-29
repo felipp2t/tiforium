@@ -1,6 +1,6 @@
 import type { UUID } from "node:crypto";
 import type { Turn } from "./turn.js";
-import { Pile } from "./pile.js";
+import type { Pile } from "./pile.js";
 
 interface RoundProps {
   id: UUID;

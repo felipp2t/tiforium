@@ -1,11 +1,11 @@
 import { randomUUID } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
-import { Lobby } from '../entities/lobby';
-import { User } from '../entities/user';
-import { InMemoryLobbyRespository } from '../respositories/in-memory/in-memory-lobby-repository';
-import { InMemoryNotificationRepository } from '../respositories/in-memory/in-memory-notification-repository';
-import { InMemoryUserRepository } from '../respositories/in-memory/in-memory-user-repository';
-import { CreateLobby } from './create-lobby';
+import { Lobby } from '../entities/lobby.js';
+import { User } from '../entities/user.js';
+import { InMemoryLobbyRespository } from '../respositories/in-memory/in-memory-lobby-repository.js';
+import { InMemoryNotificationRepository } from '../respositories/in-memory/in-memory-notification-repository.js';
+import { InMemoryUserRepository } from '../respositories/in-memory/in-memory-user-repository.js';
+import { CreateLobby } from './create-lobby.js';
 
 describe('CreateLobby', () => {
   it('should be able to create a lobby', () => {

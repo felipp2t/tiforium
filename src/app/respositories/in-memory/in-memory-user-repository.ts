@@ -1,5 +1,5 @@
-import type { User } from 'src/app/entities/user';
-import type { UserRespository } from '../user-respository';
+import type { User } from 'src/app/entities/user.js';
+import type { UserRespository } from '../user-respository.js';
 
 export class InMemoryUserRepository implements UserRespository {
   private users: User[] = [];

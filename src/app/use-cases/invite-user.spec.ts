@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import type { Notification } from '../entities/notification';
-import { User } from '../entities/user';
-import { InMemoryLobbyRespository } from '../respositories/in-memory/in-memory-lobby-repository';
-import { InMemoryNotificationRepository } from '../respositories/in-memory/in-memory-notification-repository';
-import { InMemoryUserRepository } from '../respositories/in-memory/in-memory-user-repository';
-import { CreateLobby } from './create-lobby';
-import { CreateUser } from './create-user';
+import type { Notification } from '../entities/notification.js';
+import { User } from '../entities/user.js';
+import { InMemoryLobbyRespository } from '../respositories/in-memory/in-memory-lobby-repository.js';
+import { InMemoryNotificationRepository } from '../respositories/in-memory/in-memory-notification-repository.js';
+import { InMemoryUserRepository } from '../respositories/in-memory/in-memory-user-repository.js';
+import { CreateLobby } from './create-lobby.js';
+import { CreateUser } from './create-user.js';
 
 describe('InviteUser', () => {
   it('should be able to invite a user to a lobby', async () => {

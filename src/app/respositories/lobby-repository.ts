@@ -1,5 +1,5 @@
 import type { UUID } from 'node:crypto';
-import type { Lobby } from '../entities/lobby';
+import type { Lobby } from '../entities/lobby.js';
 
 interface InviteUser {
   lobbyId: UUID;

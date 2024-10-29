@@ -1,6 +1,6 @@
 import type { UUID } from 'node:crypto';
-import { User } from '../entities/user';
-import type { UserRespository } from '../respositories/user-respository';
+import { User } from '../entities/user.js';
+import type { UserRespository } from '../respositories/user-respository.js';
 
 interface CreateUserRequest {
   id: UUID;

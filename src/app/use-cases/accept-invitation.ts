@@ -1,5 +1,5 @@
 import type { UUID } from 'node:crypto';
-import type { NotificationRepository } from '../respositories/notification-repository';
+import type { NotificationRepository } from '../respositories/notification-repository.js';
 
 export class AcceptInvitation {
   constructor(private notificationRepository: NotificationRepository) {}

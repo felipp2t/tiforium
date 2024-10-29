@@ -1,5 +1,5 @@
 import type { UUID } from 'node:crypto';
-import type { Notification } from '../entities/notification';
+import type { Notification } from '../entities/notification.js';
 
 interface sendNotificationProps {
   notification: Notification;
