@@ -18,7 +18,7 @@ interface InviteUser {
   userId: UUID;
 }
 
-interface EnjoyInLobby {
+interface EnterTheLobby {
   lobbyId: UUID;
   userId: UUID;
 }
@@ -28,5 +28,5 @@ export interface LobbyRespository {
   findByOwner({ ownerId }: FindByOwner): Promise<Lobby | undefined>;
   findById({ lobbyId }: FindById): Promise<Lobby | undefined>;
   inviteUser({ lobbyId, userId }: InviteUser): Promise<void>;
-  enjoyInLobby({ lobbyId, userId }: EnjoyInLobby): Promise<void>;
+  enterTheLobby({ lobbyId, userId }: EnterTheLobby): Promise<void>;
 }
