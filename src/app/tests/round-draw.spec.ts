@@ -1,13 +1,13 @@
 import { beforeAll, expect, test } from "vitest";
-import type { Bet } from "../entities/bet.js";
-import type { Card } from "../entities/card.js";
-import type { Player } from "../entities/player.js";
-import type { Turn } from "../entities/turn.js";
-import { createBet } from "../factories/bet-factory.js";
+import { Card } from "../entities/card.js";
+import { Bet } from "../entities/bet.js";
+import { Player } from "../entities/player.js";
+import { Turn } from "../entities/turn.js";
 import { getCard } from "../factories/card-factory.js";
+import { createBet } from "../factories/bet-factory.js";
 import { createPlayer } from "../factories/player-factory.js";
-import { createRound } from "../factories/round-factory.js";
 import { createTurn } from "../factories/turn-factory.js";
+import { createRound } from "../factories/round-factory.js";
 import { Pile } from "../entities/pile.js";
 import { createPile } from "../factories/pile-factory.js";
 
@@ -26,13 +26,13 @@ let turn2: Turn;
 let turn3: Turn;
 let turn4: Turn;
 
-test("should declare winner for the round", () => {
+test("should declare draw for the round", () => {
   const round = createRound({
     turns: [turn1, turn2, turn3, turn4],
     pile,
   });
 
-  expect(round.winner).toBe(player3.id);
+  expect(round.isDraw).toBe(true);
 });
 
 beforeAll(() => {
@@ -41,9 +41,9 @@ beforeAll(() => {
   });
 
   cards1 = [getCard({ value: "1", suit: "HEARTS" })];
-  cards2 = [getCard({ value: "2", suit: "CLUBS" })];
-  cards3 = [getCard({ value: "3", suit: "SPADES" })];
-  cards4 = [getCard({ value: "4", suit: "DIAMONDS" })];
+  cards2 = [getCard({ value: "1", suit: "CLUBS" })];
+  cards3 = [getCard({ value: "2", suit: "SPADES" })];
+  cards4 = [getCard({ value: "2", suit: "DIAMONDS" })];
 
   bet = createBet({
     predictedVictories: 1,

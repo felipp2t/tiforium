@@ -1,9 +1,11 @@
-import type { UUID } from 'node:crypto';
-import type { Turn } from './turn.js';
+import type { UUID } from "node:crypto";
+import type { Turn } from "./turn.js";
+import { Pile } from "./pile.js";
 
 interface RoundProps {
   id: UUID;
   turns: Turn[];
+  pile: Pile;
 }
 
 export class Round {
@@ -13,6 +15,9 @@ export class Round {
 
   constructor(props: RoundProps) {
     this.props = props;
+    this.props.pile.cancelCardsOfTheSameValue(
+      this.props.turns.map((turn) => turn.playedCard)
+    );
     this.determineWinner();
   }
 
@@ -33,7 +38,9 @@ export class Round {
   }
 
   private determineWinner() {
-    const cardsPlayed = this.turns.flatMap(turn => turn.playedCard);
+    const cardsPlayed = this.props.pile.cardsPlayed;
+
+    if (!cardsPlayed) return;
 
     if (!cardsPlayed.length) {
       this._isDraw = true;
@@ -43,7 +50,7 @@ export class Round {
     const winnerCard = cardsPlayed.reduce((strongestCard, currentCard) =>
       currentCard.card.strength > strongestCard.card.strength
         ? currentCard
-        : strongestCard,
+        : strongestCard
     );
 
     this._winnerId = winnerCard.playerId;
