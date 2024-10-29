@@ -40,9 +40,9 @@ describe('InviteUser', () => {
 
     await lobbyRepository.inviteUser({ userId: user.id, lobbyId: lobby.id });
 
-    const notifications = await notificationRepository.getNotifications(
-      user.id,
-    );
+    const notifications = await notificationRepository.getNotifications({
+      userId: user.id,
+    });
     expect(notifications).toBeDefined();
     expect(notifications.length).toBeGreaterThan(0);
 

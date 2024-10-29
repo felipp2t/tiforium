@@ -2,8 +2,9 @@ import { randomUUID } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
 import { Lobby } from '../entities/lobby.js';
 import { User } from '../entities/user.js';
+import { createUser } from '../factories/user-factory.js';
 import { InMemoryLobbyRespository } from '../respositories/in-memory/in-memory-lobby-repository.js';
-import { InMemoryNotificationRepository } from '../respositories/in-memory/in-memory-notification-repository.js';
+import { InMemoryNotificationRepository } from '../respositories/in-memory/in-memory-notification-repository.js'
 import { InMemoryUserRepository } from '../respositories/in-memory/in-memory-user-repository.js';
 import { CreateLobby } from './create-lobby.js';
 
@@ -21,8 +22,7 @@ describe('CreateLobby', () => {
       sut.execute({
         id: randomUUID(),
         maxPlayers: 4,
-        owner: new User({
-          id: randomUUID(),
+        owner: createUser({
           email: 'johndoe@gmail.com',
           username: 'John Doe',
           password: '123456',
@@ -41,11 +41,10 @@ describe('CreateLobby', () => {
     );
     const sut = new CreateLobby(lobbyRepository);
 
-    await sut.execute({
+    const lobby = await sut.execute({
       id: randomUUID(),
       maxPlayers: 4,
-      owner: new User({
-        id: 'c6f72f1d-ef12-4d84-9e52-2b8321f8b10e',
+      owner: createUser({
         email: 'johndoe@gmail.com',
         username: 'John Doe',
         password: '123456',
@@ -58,7 +57,7 @@ describe('CreateLobby', () => {
         id: randomUUID(),
         maxPlayers: 4,
         owner: new User({
-          id: 'c6f72f1d-ef12-4d84-9e52-2b8321f8b10e',
+          id: lobby.owner.id,
           email: 'johndoe@gmail.com',
           username: 'John Doe',
           password: '123456',

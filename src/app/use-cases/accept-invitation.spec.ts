@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
-import { Notification } from '../entities/notification.js';
+import { createNotification } from '../factories/notification-factory.js';
 import { InMemoryNotificationRepository } from '../respositories/in-memory/in-memory-notification-repository.js';
 import { AcceptInvitation } from './accept-invitation.js';
 
@@ -9,18 +9,18 @@ describe('AcceptInvitation', () => {
     const notificationRepository = new InMemoryNotificationRepository();
     const acceptInvitation = new AcceptInvitation(notificationRepository);
 
-    const notification = new Notification({
+    const sut = createNotification({
       id: randomUUID(),
-      lobbyId: '262e0c5a-8780-4b54-9852-e5966ab5339a',
-      userId: '275f2109-91a1-4e5d-9455-62dc38ea76e4',
+      lobbyId: randomUUID(),
+      userId: randomUUID(),
     });
 
-    await notificationRepository.sendNotification({ notification });
-    await acceptInvitation.execute(notification.id);
+    await notificationRepository.sendNotification({ notification: sut });
+    await acceptInvitation.execute({ notificationId: sut.id });
 
-    const updatedNotification = await notificationRepository.getNotifications(
-      '275f2109-91a1-4e5d-9455-62dc38ea76e4',
-    );
+    const updatedNotification = await notificationRepository.getNotifications({
+      userId: sut.userId,
+    });
 
     expect(updatedNotification[0].status).toBe('ACCEPTED');
   });

@@ -21,7 +21,9 @@ export class CreateLobby {
     owner,
     players,
   }: CreateLobbyRequest): Promise<CreateLobbyResponse> {
-    const lobbyByOwner = await this.lobbyRespository.findByOwner(owner.id);
+    const lobbyByOwner = await this.lobbyRespository.findByOwner({
+      ownerId: owner.id,
+    });
 
     if (lobbyByOwner) {
       throw new Error('User already has a lobby');
@@ -34,7 +36,7 @@ export class CreateLobby {
       players,
     });
 
-    await this.lobbyRespository.create(lobby);
+    await this.lobbyRespository.create({ lobby });
 
     return lobby;
   }

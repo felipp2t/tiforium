@@ -15,13 +15,17 @@ export class InMemoryNotificationRepository implements NotificationRepository {
     this.notifications.push(notification);
   }
 
-  async getNotifications(userId: UUID): Promise<Notification[]> {
+  async getNotifications({
+    userId,
+  }: { userId: UUID }): Promise<Notification[]> {
     return this.notifications.filter(
       notification => notification.userId === userId,
     );
   }
 
-  async acceptInvitation(notificationId: UUID): Promise<void> {
+  async acceptInvitation({
+    notificationId,
+  }: { notificationId: UUID }): Promise<void> {
     const notification = this.notifications.find(n => n.id === notificationId);
 
     if (!notification) {
@@ -31,7 +35,9 @@ export class InMemoryNotificationRepository implements NotificationRepository {
     notification.updateStatus('ACCEPTED');
   }
 
-  async declineInvitation(notificationId: UUID): Promise<void> {
+  async declineInvitation({
+    notificationId,
+  }: { notificationId: UUID }): Promise<void> {
     const notification = this.notifications.find(n => n.id === notificationId);
 
     if (!notification) {

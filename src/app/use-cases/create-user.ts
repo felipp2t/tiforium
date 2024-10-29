@@ -27,7 +27,7 @@ export class CreateUser {
       password,
     });
 
-    await this.userRepository.create(user);
+    await this.userRepository.create({ user });
 
     return user;
   }
