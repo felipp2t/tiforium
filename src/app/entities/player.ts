@@ -1,5 +1,5 @@
 import type { UUID } from 'node:crypto';
-import type { STATUS } from '../config/player.js';
+import type { STATUS } from '../config/player-status.js';
 import type { Bet } from './bet.js';
 import type { Card } from './card.js';
 

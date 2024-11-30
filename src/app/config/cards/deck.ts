@@ -1,8 +1,9 @@
-import type { Suit, Value } from './card.js';
+import type { Suits } from './suit-of-card.js';
+import type { Values } from './values.js';
 
 interface Deck {
-  value: Value;
-  suit: Suit;
+  value: Values;
+  suit: Suits ;
   strength: number;
 }
 

@@ -1,5 +1,5 @@
-import type { Suit, Value } from '../config/card.js';
-import { DECK } from '../config/deck.js';
+import { DECK } from '../config/cards/deck.js';
+import type { Suit, Value } from '../config/cards/suit-of-card.js';
 import { Card } from '../entities/card.js';
 
 interface CardProps {

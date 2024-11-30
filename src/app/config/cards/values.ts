@@ -1,4 +1,4 @@
-export type Value =
+export type Values =
   | '1'
   | '2'
   | '3'
@@ -10,4 +10,3 @@ export type Value =
   | 'JACK'
   | 'QUEEN'
   | 'KING';
-export type Suit = 'HEARTS' | 'DIAMONDS' | 'CLUBS' | 'SPADES';
